@@ -1,0 +1,53 @@
+
+#include <stdio.h>
+#include <stdbool.h> 
+int reversedigits(int number)
+{
+	bool negativeflag = false;
+	if (number < 0)
+	{
+		negativeflag = true;
+		number = -number ;
+	}
+
+	int prev_reversed_number = 0, reversed_number = 0;
+	while (number != 0)
+	{
+		int current_digit = number%10;
+
+		reversed_number = (reversed_number*10) + current_digit;
+
+		if ((reversed_number - current_digit)/10 != prev_reversed_number)
+		{
+			printf("WARNING OVERFLOWED!!!\n");
+			return 0;
+		}
+
+		prev_reversed_number = reversed_number;
+		number = number/10;
+	}
+
+	return (negativeflag == true)? -reversed_number : reversed_number;
+}
+
+
+int main()
+{
+	int num = 289;
+	printf("Reverse of number is %d\n", reversedigits(num));
+
+    num = -908;
+	printf("Reverse of number is %d\n", reversedigits(num));
+	
+	num = -21;
+	printf("Reverse of number is %d\n", reversedigits(num));
+	
+	num = 863;
+	printf("Reverse of number is %d\n", reversedigits(num));
+	
+	num = 6724708;
+	printf("Reverse of number is %d\n", reversedigits(num));
+	
+
+	return 0;
+}
